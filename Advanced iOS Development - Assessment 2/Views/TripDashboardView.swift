@@ -44,7 +44,7 @@ struct TripDashboardView: View {
                                         .foregroundStyle(.orange)
                                 }
                             }
-                            Text(trip.startTime.formatted(date: .abbreviated, time: .omitted))
+                            Text(trip.startTime.formatted(date: .abbreviated, time: .shortened))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
