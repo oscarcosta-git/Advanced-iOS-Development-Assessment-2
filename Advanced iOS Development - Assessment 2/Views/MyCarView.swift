@@ -21,7 +21,15 @@ struct MyCarView: View {
                     .padding(.vertical, 4)
                 }
 
-                Section("Service History") {
+                Section(header: HStack {
+                    Text("Service History")
+                    Spacer()
+                    if !vm.records.isEmpty {
+                        Text(String(format: "Total: $%.0f", vm.records.reduce(0) { $0 + $1.costAUD }))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }) {
                     if vm.records.isEmpty {
                         Text("No records yet.")
                             .foregroundStyle(.secondary)

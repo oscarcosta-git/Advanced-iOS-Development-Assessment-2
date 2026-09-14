@@ -7,17 +7,27 @@ struct TripDashboardView: View {
         NavigationStack {
             List {
                 Section {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("Verified Kilometres")
                             .foregroundStyle(.secondary)
                         Text(String(format: "%.1f km", vm.totalVerifiedKm))
                             .font(.largeTitle)
                             .bold()
+                        Text("\(vm.trips.filter { $0.isVerified }.count) of \(vm.trips.count) trips verified")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 4)
                 }
 
                 Section("Recent Trips") {
+                    if vm.trips.isEmpty {
+                        ContentUnavailableView(
+                            "No Trips Yet",
+                            systemImage: "car.fill",
+                            description: Text("Tap Add Trip to log your first drive.")
+                        )
+                    }
                     ForEach(vm.trips) { trip in
                         VStack(alignment: .leading, spacing: 4) {
                             HStack {

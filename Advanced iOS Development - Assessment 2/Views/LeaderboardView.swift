@@ -5,7 +5,15 @@ struct LeaderboardView: View {
 
     var body: some View {
         NavigationStack {
-            List(vm.entries) { entry in
+            Group {
+                if vm.entries.isEmpty {
+                    ContentUnavailableView(
+                        "No Friends Yet",
+                        systemImage: "person.2.fill",
+                        description: Text("Accept friend requests to see rankings.")
+                    )
+                } else {
+                    List(vm.entries) { entry in
                 HStack {
                     Text("#\(entry.rank)")
                         .font(.headline)
@@ -28,6 +36,9 @@ struct LeaderboardView: View {
                     }
                 }
                 .padding(.vertical, 4)
+            }
+                    }
+                }
             }
             .navigationTitle("Leaderboard")
         }
