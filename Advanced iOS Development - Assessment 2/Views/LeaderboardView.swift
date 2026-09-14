@@ -5,42 +5,40 @@ struct LeaderboardView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                if vm.entries.isEmpty {
-                    ContentUnavailableView(
-                        "No Friends Yet",
-                        systemImage: "person.2.fill",
-                        description: Text("Accept friend requests to see rankings.")
-                    )
-                } else {
-                    List(vm.entries) { entry in
-                HStack {
-                    Text("#\(entry.rank)")
-                        .font(.headline)
-                        .frame(width: 40)
-                        .foregroundStyle(rankColour(entry.rank))
-
-                    VStack(alignment: .leading) {
-                        Text(entry.name)
+            if vm.entries.isEmpty {
+                ContentUnavailableView(
+                    "No Friends Yet",
+                    systemImage: "person.2.fill",
+                    description: Text("Accept friend requests to see rankings.")
+                )
+                .navigationTitle("Leaderboard")
+            } else {
+                List(vm.entries) { entry in
+                    HStack {
+                        Text("#\(entry.rank)")
                             .font(.headline)
-                        Text(String(format: "%.0f km", entry.verifiedKm))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
+                            .frame(width: 40)
+                            .foregroundStyle(rankColour(entry.rank))
 
-                    Spacer()
+                        VStack(alignment: .leading) {
+                            Text(entry.name)
+                                .font(.headline)
+                            Text(String(format: "%.0f km", entry.verifiedKm))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
 
-                    if entry.rank == 1 {
-                        Image(systemName: "trophy.fill")
-                            .foregroundStyle(.yellow)
+                        Spacer()
+
+                        if entry.rank == 1 {
+                            Image(systemName: "trophy.fill")
+                                .foregroundStyle(.yellow)
+                        }
                     }
+                    .padding(.vertical, 4)
                 }
-                .padding(.vertical, 4)
+                .navigationTitle("Leaderboard")
             }
-                    }
-                }
-            }
-            .navigationTitle("Leaderboard")
         }
     }
 
